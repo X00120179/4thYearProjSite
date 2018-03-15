@@ -17,5 +17,23 @@ namespace GameWebsite.Controllers
             Console.WriteLine("Hello Player");
             return View(dbConnnect.Table.ToList());
         }
+
+
+        [HttpPost]
+        public ActionResult Register(string username, string email, string password)
+        {
+            if (username == null || email == null || password == null)
+            {
+                return null;
+            }
+            using (GameDB context = new GameDB())
+            {
+                context.Table.Add(new Player() { Username = username, Email = email, Password = password });
+                context.SaveChanges();
+            }
+
+            //ViewBag.name = Username;
+            return View();
+        }
     }
 }
